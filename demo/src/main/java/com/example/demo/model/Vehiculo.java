@@ -1,10 +1,12 @@
 package com.example.demo.model;
 
-public class Vehículo {
+import jakarta.persistence.*;
+
+public class Vehiculo {
     
      // Bloque de los atributos
     @Id
-    @GeneratedValue(strategy = generationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer vehiculoId;
     @Column
     private String patente;
@@ -13,22 +15,22 @@ public class Vehículo {
     @Column
     private String modelo;
     @Column
-    private Int año;
+    private Integer año;
     @Column
     private Boolean estadoVehiculo = true;
 
     // Constructores
     public Vehiculo() {
-    }
+    };
 
-    public Vehiculo(Integer vehiculoId, String patente, String marca, String modelo, Int año, Boolean estadoVehiculo) {
+    public Vehiculo(Integer vehiculoId, String patente, String marca, String modelo, Integer año, Boolean estadoVehiculo) {
         this.vehiculoId = vehiculoId;
         this.patente = patente;
         this.marca = marca;
         this.modelo = modelo;
         this.año = año;
         this.estadoVehiculo = true;
-    }
+    };
 
     // Métodos accesores get y setter
      public Integer getVehiculoId() {
@@ -50,7 +52,7 @@ public class Vehículo {
         return marca;
     }
 
-    public void setMarca(String Marca) {
+    public void setMarca(String marca) {
         this.marca = marca;
     }
 
@@ -62,11 +64,11 @@ public class Vehículo {
         this.modelo = modelo;
     }
 
-    public Int getAño() {
+    public Integer getAño() {
         return año;
     }
 
-    public void setAño(Int año) {
+    public void setAño(Integer año) {
         this.año = año;
     }
 

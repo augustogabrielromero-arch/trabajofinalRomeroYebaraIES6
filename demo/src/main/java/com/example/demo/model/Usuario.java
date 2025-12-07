@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Usuario {
     // Bloque de los atributos
     @Id
-    @GeneratedValue(strategy = generationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer usuarioId;
     @Column
     private String dni;

@@ -4,12 +4,12 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
-
+import jakarta.persistence.*;
 public class Conductor {
     
  // Bloque de los atributos
     @Id
-    @GeneratedValue(strategy = generationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer conductorId;
     @Column
     private String dni;
