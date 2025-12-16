@@ -32,7 +32,7 @@ public class ConductorService {
      * Usa el Query Method definido en el Repository.
      *  Lista de usuarios activos.
      */
-    public List<Conductor> obtenerTodosUsuariosActivos() {
+    public List<Conductor> obtenerTodosConductorActivos() {
         return conductorRepository.findByEstadoConductorTrue();
     }
     
@@ -77,10 +77,10 @@ public class ConductorService {
      *  El ID del cliente a desactivar.
      *  true si la eliminación lógica fue exitosa, false si el usuario no fue encontrado.
      */
-    public boolean eliminarUsuarioLogico(Integer conductorId) {
-        Optional<Conductor> usuarioEncontrado = conductorRepository.findById(conductorId);    
-        if (usuarioEncontrado.isPresent()) {
-            Conductor conductor = usuarioEncontrado.get();
+    public boolean eliminarConductorLogico(Integer conductorId) {
+        Optional<Conductor> conductorEncontrado = conductorRepository.findById(conductorId);    
+        if (conductorEncontrado.isPresent()) {
+            Conductor conductor = conductorEncontrado.get();
             conductor.setEstadoConductor(false); // 🔑 Lógica clave: Borrado Lógico
             conductorRepository.save(conductor); // Persiste el cambio de estado
             return true;

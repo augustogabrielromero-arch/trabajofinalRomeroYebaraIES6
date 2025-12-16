@@ -21,7 +21,7 @@ public class VehiculoService {
     /**
      * Guarda un nuevo Usuario o actualiza uno existente.
      */
-    public Vehiculo guardarUsuario(Vehiculo Vehiculo) {
+    public Vehiculo guardarVehiculo(Vehiculo Vehiculo) {
         // La lógica de negocio podría ir aquí (ej: validar email antes de guardar)
         return vehiculoRepository.save(Vehiculo);
     }
@@ -42,7 +42,7 @@ public class VehiculoService {
      *  El ID del cliente a buscar.
      *  Un objeto Optional que puede contener el Cliente.
      */
-    public Optional<Vehiculo> obtenerUsuarioPorId(Integer vehiculoId) {
+    public Optional<Vehiculo> obtenerVehiculoPorId(Integer vehiculoId) {
         // Usamos findById que devuelve un Optional para manejar la posible ausencia del cliente.
         return vehiculoRepository.findById(vehiculoId);
     }
@@ -77,10 +77,10 @@ public class VehiculoService {
      *  El ID del cliente a desactivar.
      *  true si la eliminación lógica fue exitosa, false si el usuario no fue encontrado.
      */
-    public boolean eliminarUsuarioLogico(Integer vehiculoId) {
-        Optional<Vehiculo> usuarioEncontrado = vehiculoRepository.findById(vehiculoId);    
-        if (usuarioEncontrado.isPresent()) {
-            Vehiculo vehiculo = usuarioEncontrado.get();
+    public boolean eliminarVehiculoLogico(Integer vehiculoId) {
+        Optional<Vehiculo> vehiculoEncontrado = vehiculoRepository.findById(vehiculoId);    
+        if (vehiculoEncontrado.isPresent()) {
+            Vehiculo vehiculo = vehiculoEncontrado.get();
             vehiculo.setEstadoVehiculo(false); // 🔑 Lógica clave: Borrado Lógico
             vehiculoRepository.save(vehiculo); // Persiste el cambio de estado
             return true;

@@ -77,7 +77,7 @@ public class ViajeService {
      *  El ID del cliente a desactivar.
      *  true si la eliminación lógica fue exitosa, false si el usuario no fue encontrado.
      */
-    public boolean eliminarUsuarioLogico(Integer viajeId) {
+    public boolean eliminarViajeLogico(Integer viajeId) {
         Optional<Viaje> viajeEncontrado = viajeRepository.findById(viajeId);    
         if (viajeEncontrado.isPresent()) {
             Viaje viaje = viajeEncontrado.get();
