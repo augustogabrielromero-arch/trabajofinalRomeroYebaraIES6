@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Taxi Express | Vehículos</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #e9f7ef;
+        }
+        .navbar {
+            background-color: #7DCEA0;
+        }
+        .navbar .nav-link,
+        .navbar .navbar-brand {
+            color: #fff;
+            font-weight: 500;
+        }
+        .navbar .nav-link:hover {
+            color: #145A32;
+        }
+        .card-header {
+            background-color: #7DCEA0;
+            color: #fff;
+            font-weight: bold;
+        }
+        .btn-verde {
+            background-color: #7DCEA0;
+            color: white;
+        }
+        .btn-verde:hover {
+            background-color: #196F3D;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="#">🚕 Taxi Express</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="/listarViajes">Viajes</a></li>
+                <li class="nav-item"><a class="nav-link" href="/listarConductor">Conductores</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/listarVehiculos">Vehículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="/listarUsuarios">Usuarios</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- CONTENIDO -->
+<div class="container mt-5">
+
+    <div class="card shadow">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <span>Listado de Vehículos</span>
+            <a href="/nuevoVehiculo" class="btn btn-light btn-sm">➕ Nuevo Vehículo</a>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle text-center">
+                    <thead class="table-success">
+                        <tr>
+                            <th>ID</th>
+                            <th>Patente</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Año</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="v : ${vehiculo}">
+                            <td th:text="${v.vehiculoId}"></td>
+                            <td th:text="${v.patente}"></td>
+                            <td th:text="${v.marca}"></td>
+                            <td th:text="${v.modelo}"></td>
+                            <td th:text="${v.año}"></td>
+                            <td>
+                                <a th:href="@{/editarVehiculo/{id}(id=${v.vehiculoId})}"
+                                   class="btn btn-warning btn-sm">✏️ Editar</a>
+
+                                <a th:href="@{/eliminarVehiculo/{id}(id=${v.vehiculoId})}"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('¿Desea eliminar este vehículo?')">
+                                   🗑️ Eliminar
+                                </a>
+                            </td>
+                        </tr>
+
+                        <tr th:if="${#lists.isEmpty(vehiculo)}">
+                            <td colspan="6" class="text-muted">
+                                No hay vehículos registrados.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

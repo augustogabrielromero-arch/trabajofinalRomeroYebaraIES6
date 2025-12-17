@@ -32,28 +32,28 @@ public class ConductorController {
     }
 
     // 2. MOSTRAR FORMULARIO NUEVO USUARIO
-    @GetMapping("/nuevoUsuario")
-    public String mostrarFormularioRegistroUsuario(Model model) {
+    @GetMapping("/nuevoConductor")
+    public String mostrarFormularioRegistroConductor(Model model) {
         model.addAttribute("conductor", new Conductor());
-        return "formularioUsuario";
+        return "formularioConductor";
     }
 
     // 3. GUARDAR NUEVO USUARIO
     
-    @PostMapping("/guardarUsuario")
-    public String guardarUsuario(@ModelAttribute Conductor conductor) {
+    @PostMapping("/guardarConductor")
+    public String guardarConductor(@ModelAttribute Conductor conductor) {
         conductorService.guardarConductor(conductor);
-        return "redirect:/listarCondcutor";
+        return "redirect:/listarConductor";
     }
 
     // 4. DETALLE USUARIO POR ID
-    @GetMapping("/detalleUsuario/{id}")
-    public String verDetalleUsuario(@PathVariable("id") Integer id, Model model) {
+    @GetMapping("/detalleConductor/{id}")
+    public String verDetalleConductor(@PathVariable("id") Integer id, Model model) {
 
         Conductor conductor = conductorService.obtenerConductorPorId(id)
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, 
-                        "Usuario no encontrado con ID: " + id));
+                        "Conductor no encontrado con ID: " + id));
 
         model.addAttribute("conductor", conductor);
         return "detalleConductor";
@@ -69,13 +69,13 @@ public class ConductorController {
     }
 
     // 6. FORMULARIO PARA EDITAR USUARIO
-    @GetMapping("/editarUsuario/{id}")
+    @GetMapping("/editarConductor/{id}")
     public String mostrarFormularioEdicion(@PathVariable("id") Integer id, Model model) {
 
         Conductor conductor = conductorService.obtenerConductorPorId(id)
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, 
-                        "Usuario no encontrado para editar con ID: " + id));
+                        "Conductor no encontrado para editar con ID: " + id));
 
         model.addAttribute("conductor", conductor);
         return "formularioConductor";
@@ -83,7 +83,7 @@ public class ConductorController {
 
     // 7. PROCESAR ACTUALIZACIÓN
     @PostMapping("/actualizarConductor/{id}")
-    public String actualizarUsuario(@PathVariable("id") Integer id, 
+    public String actualizarConductor(@PathVariable("id") Integer id, 
                                     @ModelAttribute Conductor conductorActualizado) {
 
         conductorActualizado.setConductorId(id);

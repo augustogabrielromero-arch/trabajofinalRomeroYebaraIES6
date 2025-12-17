@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Viajes</title>
+
+    <!-- Bootstrap CSS -->
+    <style>
+        body {
+            background-color: #e8f5e9; /* verde claro */
+        }
+        .navbar {
+            background-color: #2e7d32;
+        }
+        .navbar .nav-link,
+        .navbar .navbar-brand {
+            color: white !important;
+        }
+        .navbar .nav-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">🚕 Taxi Express</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/listarViajes">Viajes</a></li>
+                <li class="nav-item"><a class="nav-link" href="/listarConductor">Conductores</a></li>
+                <li class="nav-item"><a class="nav-link" href="/listarVehiculos">Vehículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="/listarUsuarios">Usuarios</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- CONTENIDO -->
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Listado de Viajes</h2>
+        <a href="/nuevoViaje" class="btn btn-success">
+            ➕ Nuevo Viaje
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Destino</th>
+                    <th>Distancia</th>
+                    <th>Precio</th>
+                    <th>Estado</th>
+                    <th>Usuario</th>
+                    <th>Vehículo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="viaje : ${viajes}">
+                    <td th:text="${viaje.viajeId}"></td>
+                    <td th:text="${viaje.destino}"></td>
+                    <td th:text="${viaje.distancia}"></td>
+                    <td th:text="${viaje.precio}"></td>
+                    <td th:text="${viaje.estado}"></td>
+
+                    <!-- Usuario asociado -->
+                    <td th:text="${viaje.usuario != null ? viaje.usuario.nombre : 'Sin usuario'}"></td>
+
+                    <!-- Vehículo asociado -->
+                    <td th:text="${viaje.vehiculo != null ? viaje.vehiculo.patente : 'Sin vehículo'}"></td>
+
+                    <td class="text-center">
+                        
+                        <a th:href="@{/editarViaje/{id}(id=${viaje.viajeId})}" 
+                           class="btn btn-warning btn-sm">
+                            ✏ Editar
+                        </a>
+                        <a th:href="@{/eliminarViaje/{id}(id=${viaje.viajeId})}" 
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('¿Seguro que desea eliminar este viaje?')">
+                            🗑 Eliminar
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

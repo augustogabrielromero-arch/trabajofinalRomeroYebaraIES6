@@ -1,9 +1,10 @@
 package com.example.demo.model;
 
 import java.time.LocalDate;
-
+import java.util.ArrayList;
+import java.util.List;
 import jakarta.persistence.*;
-
+@Entity
 public class Usuario {
     // Bloque de los atributos
     @Id
@@ -19,6 +20,10 @@ public class Usuario {
     private LocalDate fechaNac;
     @Column
     private Boolean estadoUsuario = true;
+
+// Relación 1:N con Viaje un usuario hace muchos viajes
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Viaje> viajes = new ArrayList<>();
 
     // Constructores
     public Usuario() {

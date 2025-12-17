@@ -2,9 +2,8 @@ package com.example.demo.model;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.*;
+@Entity
 public class Conductor {
     
  // Bloque de los atributos
@@ -21,6 +20,11 @@ public class Conductor {
     private String licencia;
     @Column
     private Boolean estadoConductor = true;
+
+// Relación 1:1 con Vehiculo: un conductor tienen un vehiculo.
+    @OneToOne
+    @JoinColumn(name = "vehiculoId") 
+    private Vehiculo vehiculo;
 
     // Constructores
     public Conductor() {

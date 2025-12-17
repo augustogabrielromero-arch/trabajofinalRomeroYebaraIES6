@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario Viaje</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">🚕 Taxi Express</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/listarViajes">Viajes</a></li>
+                <li class="nav-item"><a class="nav-link" href="/listarConductor">Conductores</a></li>
+                <li class="nav-item"><a class="nav-link" href="/listarVehiculos">Vehículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="/listarUsuarios">Usuarios</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- CONTENIDO -->
+<div class="container mt-4">
+
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0"
+                th:text="${viaje.viajeId == null ? 'Nuevo Viaje' : 'Editar Viaje'}">
+            </h4>
+        </div>
+
+        <div class="card-body">
+
+            <form th:object="${viaje}"
+                  th:action="${viaje.viajeId == null} ? @{/guardarViaje} : @{/actualizarViaje/{id}(id=${viaje.viajeId})}"
+                  method="post">
+
+                <!-- DESTINO -->
+                <div class="mb-3">
+                    <label class="form-label">Destino</label>
+                    <input type="text" class="form-control"
+                           th:field="*{destino}"
+                           required>
+                </div>
+
+                <!-- DISTANCIA -->
+                <div class="mb-3">
+                    <label class="form-label">Distancia</label>
+                    <input type="text" class="form-control"
+                           th:field="*{distancia}"
+                           required>
+                </div>
+
+                <!-- PRECIO -->
+                <div class="mb-3">
+                    <label class="form-label">Precio</label>
+                    <input type="number" step="0.01" class="form-control"
+                           th:field="*{precio}"
+                           required>
+                </div>
+
+                <!-- ESTADO -->
+                <div class="mb-3">
+                    <label class="form-label">Estado del viaje</label>
+                    <select class="form-select" th:field="*{estado}">
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="En curso">En curso</option>
+                        <option value="Finalizado">Finalizado</option>
+                    </select>
+                </div>
+
+                <!-- USUARIO -->
+                <div class="mb-3">
+                    <label class="form-label">Usuario</label>
+                    <select class="form-select" th:field="*{usuario.usuarioId}" required>
+                        <option value="">Seleccione un usuario</option>
+                        <option th:each="u : ${usuarios}"
+                                th:value="${u.usuarioId}"
+                                th:text="${u.nombre}">
+                        </option>
+                    </select>
+                </div>
+
+                <!-- VEHÍCULO -->
+                <div class="mb-3">
+                    <label class="form-label">Vehículo</label>
+                    <select class="form-select" th:field="*{vehiculo.vehiculoId}" required>
+                        <option value="">Seleccione un vehículo</option>
+                        <option th:each="v : ${vehiculos}"
+                                th:value="${v.vehiculoId}"
+                                th:text="${v.patente + ' - ' + v.marca}">
+                        </option>
+                    </select>
+                </div>
+
+                <!-- BOTONES -->
+                <div class="d-flex justify-content-between">
+                    <a href="/listarViajes" class="btn btn-secondary">
+                        ⬅ Volver
+                    </a>
+
+                    <button type="submit" class="btn btn-success">
+                        💾 Guardar
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
